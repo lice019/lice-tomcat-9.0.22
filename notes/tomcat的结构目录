@@ -1,0 +1,41 @@
+1.bin：
+   bin目录主要是用来存放该目录下存放二进制的可执行文件。这些文件主要有两大类，一类是以.sh结尾的（linux命令），另一类是以.bat结尾的（windows命令）。并且很多环境变量的设置都在此处，例如jdk路径、tomcat路径等。
+
+   startup 用来启动tomcat 
+   shutdown 用来关闭tomcat 
+   修改catalina可以设置tomcat的内存
+
+ 2.conf：
+ conf目录主要是用来存放tomcat的一些配置文件。
+ server.xml：
+ 可以设置端口号、设置域名或IP、默认加载的项目、请求编码 、添加虚拟主机等
+
+ web.xml：
+
+ 可以部署描述符文件，这个文件中注册了很多MIME类型，即文档类型。这些MIME类型是客户端与服务器之间说明文档类型的，如用户请求一个html网页，那么服务器还会告诉客户端浏览器响应的文档是text/html类型的，这就是一个MIME类型。客户端浏览器通过这个MIME类型就知道如何处理它了。当然是在浏览器中显示这个html文件了。但如果服务器响应的是一个exe文件，那么浏览器就不可能显示它，而是应该弹出下载窗口才对。MIME就是用来说明文档的内容是什么类型的！
+ context.xml可以用来配置数据源之类的 
+ tomcat-users.xml用来配置管理tomcat的用户与权限 
+ 在Catalina目录下可以设置默认加载的项目
+
+3.lib:
+ lib目录主要用来存放tomcat运行需要加载的jar包。
+ 例如，像连接数据库的jdbc的包我们可以加入到lib目录中来。
+
+4.logs：
+    logs目录用来存放tomcat在运行过程中产生的日志文件，非常重要的是在控制台输出的日志。（清空不会对tomcat运行带来影响） 
+    在windows环境中，控制台的输出日志在catalina.xxxx-xx-xx.log文件中 
+    在linux环境中，控制台的输出日志在catalina.out文件中
+
+
+5.temp：
+    temp目录用户存放tomcat在运行过程中产生的临时文件。（清空不会对tomcat运行带来影响）
+
+
+6.webapps：
+    webapps存放web项目的目录，其中每个文件夹都是一个项目；如果这个文件下已经存在了目录，那么都是tomcat自带的。注意：其中ROOT是一个特殊的项目，在地址栏中没有给出项目目录时，对应的就是ROOT项目。http://localhost:8080/examples，进入示例项目。其中examples就是项目名，即文件夹的名字。当tomcat启动时会去加载webapps目录下的应用程序。可以以文件夹、war包、jar包的形式发布应用。
+    当然，你也可以把应用程序放置在磁盘的任意位置，在配置文件中映射好就行。 
+
+
+7.work:
+    work目录用来存放tomcat在运行时的编译后文件，例如JSP编译后的文件。
+    清空work目录，然后重启tomcat，可以达到清除缓存的作用。~

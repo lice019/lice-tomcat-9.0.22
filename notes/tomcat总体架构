@@ -1,0 +1,36 @@
+1、tomcat有几种部署方式：
+   （1）、war包拷贝到webapp目录下。
+   （2）、在server.xml文件中配置：
+             <Context docBase="D:\mvc" path="/" reloadable="true"></Context>
+             docBase:项目的存放路径。
+             path：项目的访问路径。
+   （3）、conf/Catalina/localhost目录下创建xx.xml文件，path就是文件名。
+            xx.xml中：<Context docBase="D:\mvc" path="/" reloadable="true"></Context>即可
+
+
+
+2、tomcat容器是如何创建Servlet实例的？用了什么原理？
+     Servlet都是配置在web.xml中的。
+     解析web.xml文件：
+            WebXml对象就是承载web.xml文件的内容，
+            org.apache.catalina.startup.ContextConfig去解析web.xml
+
+     创建Servlet实例：org.apache.catalina.core.StandardContext.loadOnStartup
+     然后将Servlet包装成Wrapper，一个Wrapper对应一个Servlet
+
+
+
+
+3、分析tomcat一个请求的完整过程：
+
+    先理解tomcat的总体你架构，有哪些组件？
+    查看server.xml文件，看有哪些组件组成：
+       （1）、Server ：服务器，是tomcat的顶层容器。（Server接口继承了Container容器接口）
+       （2）、Service：服务
+            包含了Executor、Connector（多个）、Engine
+            （3）、Connector：连接器tomcat8之后默认的线程模型：使用了NIO，不是BIO了。
+                    Connector的主要作用是监听8080端口，例如：ServerSocket socket = new ServerSocket(8080)
+                    应该就是Socket的包装。监听客户端的socket请求。然将请求转发给容器。
+            （4）、Engine：也是顶层容器，继承了Container容器接口
+            （5）、Host：网站虚拟主机
+            （6）、Context：一个Context对应一个应用
